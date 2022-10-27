@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { IoImageOutline } from "react-icons/io5";
+import React, { useRef } from "react";
+import { IoCloseOutline, IoImageOutline } from "react-icons/io5";
 
 type Props = {
     fileList: any;
@@ -15,12 +15,26 @@ const DropFileInput = ({ fileList, setFileList }: Props) => {
     const handleDrop = (e: any) => {
         e.preventDefault();
 
-        setFileList([...fileList, ...e.dataTransfer.files]);
+        const image_files = e.dataTransfer.files;
+        const filtered_image_files = Array.from(image_files).filter(
+            (item: any) =>
+                item.type === "image/jpeg" || item.type === "image/jpg"
+        );
+
+        setFileList([...fileList, ...filtered_image_files]);
         onDrop();
     };
 
     const selectFiles = (e: any) => {
         setFileList([...fileList, ...e.target.files]);
+    };
+
+    const deleteItem = (deleteIndex: number) => {
+        const filtered_image_files = fileList.filter(
+            (_item: any, index: number) => index !== deleteIndex
+        );
+
+        setFileList(filtered_image_files);
     };
 
     const onDragEnter = () => {
@@ -63,6 +77,7 @@ const DropFileInput = ({ fileList, setFileList }: Props) => {
                                     type="file"
                                     id="upload-files"
                                     className="hidden"
+                                    accept="image/jpeg,image/jpg"
                                     multiple
                                     onChange={(e) => selectFiles(e)}
                                 />
@@ -74,7 +89,17 @@ const DropFileInput = ({ fileList, setFileList }: Props) => {
 
             {fileList &&
                 fileList.map((file: any, index: number) => {
-                    return <p key={index}>{file.name}</p>;
+                    return (
+                        <div
+                            key={index}
+                            className="flex bg-[#DDDDDD] justify-between content-center p-1 my-1 rounded"
+                        >
+                            {file.name}{" "}
+                            <div onClick={() => deleteItem(index)}>
+                                <IoCloseOutline size={24} />
+                            </div>
+                        </div>
+                    );
                 })}
         </React.Fragment>
     );

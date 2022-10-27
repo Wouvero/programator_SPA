@@ -1,10 +1,11 @@
 import ContextMenu from "components/context-menu";
 import useContextMenu from "components/context-menu/hooks/use-context-menu";
-import FallbackImage from "components/fallback-image";
+import Img from "components/image";
 import useDeleteImage from "pages/gallery-page/hooks/use-delete-image";
 import React, { useRef } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
+import { BASE_URL } from "setup/axios-manager/api_instance";
 import { imageI } from "types/images";
 
 const ImageCard = (props: imageI) => {
@@ -35,9 +36,9 @@ const ImageCard = (props: imageI) => {
                 ref={imageCardRef}
                 className="bg-white shadow-card rounded cursor-pointer h-[295px]"
             >
-                <div className="rounded relative w-full h-full bg-blue-400">
-                    <FallbackImage
-                        src={`http://api.programator.sk/images/300x300/${props.fullpath}`}
+                <div className="rounded relative w-full h-full bg-gray-50">
+                    <Img
+                        src={`${BASE_URL}/images/300x300/${props.fullpath}`}
                         name={props.name}
                         className="absolute top-0 left-0 object-cover object-center w-full h-full rounded"
                     />

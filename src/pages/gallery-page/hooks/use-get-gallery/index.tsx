@@ -9,20 +9,21 @@ const useGetGallery = () => {
 
     const [loadData, setLoadData] = useState<Boolean>(false);
 
-    const loadGalleryImages = async () => {
-        axios
-            .get(`/gallery/${galleryPath}`)
-            .then((response) => response.data)
-            .then((data) => {
-                setGalleryData(data);
-            });
-
-        setLoadData(true);
-    };
-
     useEffect(() => {
+        setLoadData(true);
+
+        const loadGalleryImages = async () => {
+            axios
+                .get(`/gallery/${galleryPath}`)
+                .then((response) => response.data)
+                .then((data) => {
+                    setGalleryData(data);
+                    setLoadData(false);
+                });
+        };
+
         loadGalleryImages();
-    }, []);
+    }, [galleryPath, setGalleryData]);
 
     return { galleryData, loadData };
 };

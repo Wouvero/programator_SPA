@@ -8,27 +8,39 @@ const useAddPhotos = () => {
 
     const addNewPhotos = async (files: any) => {
         files &&
-            files.map((file: any) => {
+            files.forEach((file: any) => {
                 const fd = new FormData();
                 fd.append("file", file);
 
-                console.log(fd);
                 axios
                     .post(`/gallery/${galleryPath}`, fd, {
                         headers: { "Content-Type": "multipart/form-data" },
                     })
                     .then((response) => {
                         let temp = galleryData;
-                        //  console.log(response.data.uploaded);
+
                         temp = {
                             ...temp,
                             images: [...temp.images, ...response.data.uploaded],
                         };
-                        console.log(temp);
+
                         setGalleryData(temp);
                     })
 
-                    .catch((error) => console.log(error));
+                    .catch((error) => {
+                        const { code } = error.response.data;
+
+                        switch (code) {
+                            case 400:
+                                alert("Neplatný súbor.");
+                                break;
+                            case 404:
+                                alert("Galéria sa nenašla.");
+                                break;
+                            default:
+                                break;
+                        }
+                    });
             });
     };
 

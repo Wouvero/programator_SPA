@@ -13,26 +13,28 @@ const AddImages = ({ setOpenModal }: Props) => {
     const { addNewPhotos } = useAddPhotos();
     return (
         <ModalWindow closeModal={setOpenModal}>
-            <div className="flex justify-between items-center mb-12">
-                <h1 className="text-2xl">Pridať fotky</h1>
-                <div
-                    className="flex items-center cursor-pointer text-2xl"
-                    onClick={() => setOpenModal(false)}
-                >
-                    <IoCloseOutline />
+            <div className="p-10 sm:p-12">
+                <div className="flex justify-between items-center mb-12">
+                    <h1 className="text-2xl">Pridať fotky</h1>
+                    <div
+                        className="flex items-center cursor-pointer text-2xl"
+                        onClick={() => setOpenModal(false)}
+                    >
+                        <IoCloseOutline />
+                    </div>
                 </div>
-            </div>
-            <DropFileInput fileList={fileList} setFileList={setFileList} />
+                <DropFileInput fileList={fileList} setFileList={setFileList} />
 
-            <button
-                onClick={() => {
-                    addNewPhotos(fileList);
-                    setOpenModal(false);
-                }}
-                className="text-base w-full h-16 rounded bg-black text-white hover:bg-blue-700 transition ease-in-out delay-75 mt-6"
-            >
-                Pridať
-            </button>
+                <button
+                    onClick={() => {
+                        addNewPhotos(fileList);
+                        setOpenModal(false);
+                    }}
+                    className="text-base w-full h-16 rounded bg-black text-white hover:bg-blue-700 transition ease-in-out delay-75 mt-6"
+                >
+                    Pridať
+                </button>
+            </div>
         </ModalWindow>
     );
 };

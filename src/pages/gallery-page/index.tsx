@@ -13,46 +13,43 @@ const GalleryPage = () => {
 
     const navigate = useNavigate();
 
+    if (loadData)
+        return (
+            <div className="w-full h-full grid place-items-center">Loading</div>
+        );
+
     return (
-        <div className="w-[90%] px-10 py-20 m-auto">
-            {loadData ? (
-                <>
-                    <h1 className="text-4xl">Fotogaléria</h1>
+        <div className="container py-20">
+            <div className="pb-10">
+                <h1 className="text-4xl pb-10">Fotogaléria</h1>
 
-                    <div className="inline-block py-10">
-                        <span
-                            className="flex items-center text-lg cursor-pointer"
-                            onClick={() => navigate("/")}
-                        >
-                            <IoArrowBack className="mr-2" />
-                            {galleryData.gallery?.name}
-                        </span>
+                <div className="inline-block">
+                    <span
+                        className="flex items-center text-lg cursor-pointer"
+                        onClick={() => navigate("/")}
+                    >
+                        <IoArrowBack className="mr-2" />
+                        {galleryData.gallery?.name}
+                    </span>
+                </div>
+            </div>
+
+            <section className="grid grid-cols-4 auto-rows-fr gap-8">
+                {galleryData.images &&
+                    galleryData.images.map((item: imageI) => {
+                        return <ImageCard {...item} key={item.fullpath} />;
+                    })}
+                <div
+                    className="bg-white w-full min-h-[285px] grid place-items-center rounded shadow-card cursor-pointer"
+                    onClick={() => setOpenAddImages(true)}
+                >
+                    <div className="flex flex-col items-center">
+                        <IoAddCircleOutline className="text-[24px] text-gray-600" />
+                        <p className="text-base pt-4">Pridať fotky</p>
                     </div>
-
-                    <section className="grid grid-cols-4 auto-rows-fr gap-8">
-                        {galleryData.images &&
-                            galleryData.images.map((item: imageI) => {
-                                return (
-                                    <ImageCard {...item} key={item.fullpath} />
-                                );
-                            })}
-                        <div
-                            className="bg-white w-full min-h-[285px] grid place-items-center rounded shadow-card cursor-pointer"
-                            onClick={() => setOpenAddImages(true)}
-                        >
-                            <div className="flex flex-col items-center">
-                                <IoAddCircleOutline className="text-[24px] text-gray-600" />
-                                <p className="text-base pt-4">Pridať fotky</p>
-                            </div>
-                        </div>
-                        {openAddImages && (
-                            <AddImages setOpenModal={setOpenAddImages} />
-                        )}
-                    </section>
-                </>
-            ) : (
-                <>Loading</>
-            )}
+                </div>
+                {openAddImages && <AddImages setOpenModal={setOpenAddImages} />}
+            </section>
         </div>
     );
 };

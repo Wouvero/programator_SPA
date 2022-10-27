@@ -13,12 +13,13 @@ const useContextMenu = (parrentRef: React.MutableRefObject<null>) => {
 
         const showMenu = (e: any) => {
             e.preventDefault();
+
             e.pageX + 200 > window.innerWidth
-                ? setX(e.pageX - 200)
+                ? setX(e.pageX - 224)
                 : setX(e.pageX);
-            e.pageY + 200 > window.innerHeight
-                ? setY(e.pageY - 200)
-                : setY(e.pageY);
+
+            setY(e.pageY);
+
             setIsVisible(true);
         };
 

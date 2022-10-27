@@ -2,6 +2,13 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
+            container: {
+                center: true,
+
+                padding: {
+                    DEFAULT: "1rem",
+                },
+            },
             fontFamily: {
                 barlow: "'Barlow', sans-serif",
             },
@@ -51,6 +58,9 @@ module.exports = {
             },
             gridTemplateColumns: {
                 4: "repeat(auto-fill, minmax(250px, 1fr))",
+            },
+            gridTemplateRows: {
+                layout: "200px auto",
             },
             boxShadow: {
                 card: "0px 4px 24px #00000014",

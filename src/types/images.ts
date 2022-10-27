@@ -5,8 +5,8 @@ export interface imageI {
     path: string;
 }
 
-export interface fallbackImageI {
+export interface loadImageI {
     src: string;
     name?: string;
-    className: string;
+    className?: string;
 }
